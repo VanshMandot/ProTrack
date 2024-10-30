@@ -11,8 +11,19 @@ const data = {
       medium: 'N/A',
       hard: 'N/A',
   },
-  lastUpdated: 'N/A'
+  cfLastSolved: 'N/A',
+  lcLastSolved: 'N/A',
 };
+
+const formatDate = (date) => {
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+  const year = date.getFullYear();
+  const time = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  
+  return `${day}/${month}/${year} ${time}`;
+};
+
 
 const fetchUserData = async (username) => {
   try {
@@ -33,20 +44,36 @@ const fetchUserData = async (username) => {
       data.leetcode.hard = leetcodeData.hardSolved;
 
       if (contestsData.status === 'OK' && ratingData.status === 'OK') {
-          const contests = new Set(contestsData.result.map(submission => submission.contestId));
-          const problemsSolved = new Set(contestsData.result.map(submission => `${submission.contestId}-${submission.problem.index}`));
-          const rating = ratingData.result[0].rating;
-
-          data.codeforces.rating = rating;
-          data.codeforces.QuestionsSolved = problemsSolved.size; 
-          data.codeforces.ContestParticipated = contests.size;
-
-          data.lastUpdated = new Date().toLocaleString();
-
-          updateHTML();
-      } else {
-          console.log('Error fetching user data:', contestsData.comment || ratingData.comment);
-      }
+        const contests = new Set(contestsData.result.map(submission => submission.contestId));
+        const problemsSolved = new Set(contestsData.result.map(submission => `${submission.contestId}-${submission.problem.index}`));
+        const rating = ratingData.result[0].rating;
+    
+        data.codeforces.rating = rating;
+        data.codeforces.QuestionsSolved = problemsSolved.size; 
+        data.codeforces.ContestParticipated = contests.size;
+    
+        if (contestsData.result.length > 0) {
+            const lastSubmission = contestsData.result[contestsData.result.length - 1]; 
+            const lastSolvedDate = new Date(lastSubmission.creationTimeSeconds * 1000); 
+            data.cfLastSolved = `Last Solved: ${formatDate(lastSolvedDate)}`; 
+        }
+    
+        const recentSubmissions = leetcodeData.recentSubmissions;
+        const lastSolvedSubmission = recentSubmissions.reverse().find(submission => submission.statusDisplay === "Accepted");
+    
+        if (lastSolvedSubmission) {
+            const lastSolvedTimestamp = lastSolvedSubmission.timestamp;
+            const lastSolvedDate = new Date(lastSolvedTimestamp * 1000);
+            data.lcLastSolved = `Last Solved: ${formatDate(lastSolvedDate)}`; 
+        } else {
+            data.lcLastSolved = `Last Solved: N/A`;
+        }
+    
+        updateHTML();
+    } else {
+        console.log('Error fetching user data:', contestsData.comment || ratingData.comment);
+    }
+    
   } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
   }
@@ -61,7 +88,8 @@ const updateHTML = () => {
   document.getElementById('lc-easy-solved').textContent = data.leetcode.easy;
   document.getElementById('lc-medium-solved').textContent = data.leetcode.medium; 
   document.getElementById('lc-hard-solved').textContent = data.leetcode.hard; 
-  document.getElementById('date-time').textContent = data.lastUpdated; 
+  document.getElementById('cf-date-time').textContent = data.cfLastSolved; 
+  document.getElementById('lc-date-time').textContent = data.lcLastSolved; 
 };
 
 document.addEventListener('DOMContentLoaded', () => {
