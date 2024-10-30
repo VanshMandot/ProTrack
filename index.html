@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProgTrack</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header class="header">
+        <h1>VMM - ProgTrack</h1>
+    </header>
+
+    <div class="container">
+        <section class="section">
+            <h1 class="section-header"> CodeForces </h1>
+            <div class="Section-info">
+                <p><strong>Rating:</strong> <span id="cf-rating"></span></p>
+                <p><strong>Questions Solved:</strong> <span id="cf-questions-solved"></span></p>
+                <p><strong>Contest Participated:</strong> <span id="cf-contests-participated"></span></p>
+            </div>
+        </section>
+        <section class="section">
+            <h1 class="section-header"> LeetCode </h1>
+            <div class="Section-info">
+                <p><strong>Rank:</strong> <span id="lc-rank"></span></p>
+                <p><strong>Total Solved:</strong> <span id="lc-questions-solved"></span></p>
+                <div class="difficulty-breakdown">
+                    <p><strong>Easy:</strong> <span id="lc-easy-solved"></span></p>
+                    <p><strong>Medium:</strong> <span id="lc-medium-solved"></span></p>
+                    <p><strong>Hard:</strong> <span id="lc-hard-solved"></span></p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <span class="update-span">Last Update: <span id="date-time"></span></span>
+
+    <script src="index.js"></script>
+</body>
+</html>
