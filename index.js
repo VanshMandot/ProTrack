@@ -53,14 +53,14 @@ const fetchUserData = async (username) => {
         data.codeforces.ContestParticipated = contests.size;
     
         if (contestsData.result.length > 0) {
-            const lastSubmission = contestsData.result[contestsData.result.length - 1]; 
+            const lastSubmission = contestsData.result[0]; 
             const lastSolvedDate = new Date(lastSubmission.creationTimeSeconds * 1000); 
             data.cfLastSolved = `Last Solved: ${formatDate(lastSolvedDate)}`; 
         }
     
         const recentSubmissions = leetcodeData.recentSubmissions;
-        const lastSolvedSubmission = recentSubmissions.reverse().find(submission => submission.statusDisplay === "Accepted");
-    
+        const lastSolvedSubmission = recentSubmissions.find(submission => submission.statusDisplay === "Accepted");
+        
         if (lastSolvedSubmission) {
             const lastSolvedTimestamp = lastSolvedSubmission.timestamp;
             const lastSolvedDate = new Date(lastSolvedTimestamp * 1000);
