@@ -65,8 +65,8 @@
 }
 
 .update-span {
-  position: absolute; 
-  bottom: 10px;
+  position: absolute;
+  bottom: 10px; 
   right: 20px; 
   font-size: 12px;
   color: #070707;
@@ -102,11 +102,11 @@
   }
 
   .difficulty-breakdown p {
-    font-size: 15px;
+    font-size: 17px;
   }
 
-  #lc-date-time {
-    top: 79%;
+  .container{
+    height: calc(100vh - 105px); 
   }
 
 }

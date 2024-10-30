@@ -93,6 +93,6 @@ const updateHTML = () => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  fetchUserData('vmmm');
+  // fetchUserData('vmmm');
   updateHTML();
 });
