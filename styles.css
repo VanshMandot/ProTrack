@@ -75,10 +75,6 @@
   white-space: pre-wrap;
 }
 
-#lc-date-time{
-  bottom: 25px;
-}
-
 @media (max-width: 600px) {
 
   .update-span{
