@@ -65,9 +65,9 @@
 }
 
 .update-span {
-  position: absolute; /* Change to absolute */
-  bottom: 10px; /* Position from the bottom */
-  right: 20px; /* Position from the right */
+  position: absolute; 
+  bottom: 10px;
+  right: 20px; 
   font-size: 12px;
   color: #070707;
   padding: 2px 5px;
